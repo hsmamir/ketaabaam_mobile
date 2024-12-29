@@ -23,16 +23,16 @@ export default function SettingsPage() {
             <div className="space-y-1">
               <SettingsItem
                 icon={<User className="w-5 h-5" />}
-                title="Profile"
+                title="پروفایل"
                 subtitle={user?.phone}
               />
               <SettingsItem
                 icon={<Shield className="w-5 h-5" />}
-                title="Privacy & Security"
+                title="حریم خصوصی و امنیت"
               />
               <SettingsItem
                 icon={<Bell className="w-5 h-5" />}
-                title="Notifications"
+                title="اعلان ها"
               />
             </div>
           </section>
@@ -42,7 +42,7 @@ export default function SettingsPage() {
             <div className="space-y-1">
               <SettingsItem
                 icon={<BookOpen className="w-5 h-5" />}
-                title="Reading Preferences"
+                title="ترجیحات مطالعه"
               />
             </div>
           </section>
@@ -52,7 +52,7 @@ export default function SettingsPage() {
             <div className="space-y-1">
               <SettingsItem
                 icon={<HelpCircle className="w-5 h-5" />}
-                title="Help & Support"
+                title="پشتیبانی و راهنما"
               />
             </div>
           </section>
