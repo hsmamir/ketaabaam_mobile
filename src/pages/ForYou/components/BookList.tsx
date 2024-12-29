@@ -11,7 +11,6 @@ export default function BookList({ title, books }: Props) {
       <h2 className="text-xl font-semibold mb-4">{title}</h2>
       <div className="space-y-4">
         {books.map((book) => {
-          console.log(book);
           return (
             <div key={book.id} className="flex gap-3">
               <img
