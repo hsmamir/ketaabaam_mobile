@@ -85,7 +85,7 @@ export default function LibraryPage() {
           type="text"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          placeholder="Search your library..."
+          placeholder="تو کتابات بگرد..."
           className="w-full px-3 py-2 border rounded"
         />
       </form>

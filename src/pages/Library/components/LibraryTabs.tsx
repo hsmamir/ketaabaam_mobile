@@ -9,16 +9,16 @@ interface Props {
 }
 
 export default function LibraryTabs({ currentlyReading, wantToRead, finished }: Props) {
-  const tabs = ['Currently Reading', 'Want to Read', 'Finished'];
+  const tabs = ['دارم میخونم', 'میخوام بخونم', 'خوندم'];
   const [activeTab, setActiveTab] = useState<string>(tabs[0]);
 
   const getBooksForActiveTab = () => {
     switch (activeTab) {
-      case 'Currently Reading':
+      case 'دارم میخونم':
         return currentlyReading;
-      case 'Want to Read':
+      case 'میخوام بخونم':
         return wantToRead;
-      case 'Finished':
+      case 'خوندم':
         return finished;
       default:
         return [];
