@@ -10,20 +10,23 @@ export default function BookList({ title, books }: Props) {
     <section className="px-4 py-6">
       <h2 className="text-xl font-semibold mb-4">{title}</h2>
       <div className="space-y-4">
-        {books.map((book) => (
-          <div key={book.id} className="flex gap-3">
-            <img
-              src={book.cover || 'https://images.unsplash.com/photo-1543002588-bfa74002ed7e?auto=format&fit=crop&w=200'}
-              alt={book.title}
-              className="w-16 h-24 object-cover rounded"
-            />
-            <div>
-              <h3 className="font-medium">{book.title}</h3>
-              <p className="text-sm text-gray-600">{book.author.name}</p>
-              <p className="text-xs text-gray-500 mt-1">{book.genre.name}</p>
+        {books.map((book) => {
+          console.log(book);
+          return (
+            <div key={book.id} className="flex gap-3">
+              <img
+                src={book.cover || 'https://images.unsplash.com/photo-1543002588-bfa74002ed7e?auto=format&fit=crop&w=200'}
+                alt={book.title}
+                className="w-16 h-24 object-cover rounded"
+              />
+              <div>
+                <h3 className="font-medium">{book.title}</h3>
+                <p className="text-sm text-gray-600">{book.author?.name || 'Unknown Author'}</p>
+                <p className="text-xs text-gray-500 mt-1">{book.genre?.name || 'Unknown Genre'}</p>
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </section>
   );

@@ -6,21 +6,27 @@ import ForYouPage from './pages/ForYou/ForYouPage';
 import LibraryPage from './pages/Library/LibraryPage';
 import SettingsPage from './pages/Settings/SettingsPage';
 import ExplorePage from './pages/Explore/ExplorePage';
+import { AuthProvider } from './context/AuthContext';
+import ErrorBoundary from './components/ErrorBoundary';
 
 export default function App() {
   return (
     <Provider store={store}>
-      <Router>
-        <div className="min-h-screen bg-gray-50">
-          <Routes>
-            <Route path="/" element={<ForYouPage />} />
-            <Route path="/explore" element={<ExplorePage />} />
-            <Route path="/library" element={<LibraryPage />} />
-            <Route path="/settings" element={<SettingsPage />} />
-          </Routes>
-          <NavigationBar />
-        </div>
-      </Router>
+      <AuthProvider>
+        <ErrorBoundary>
+          <Router>
+            <div className="min-h-screen bg-gray-50">
+              <Routes>
+                <Route path="/" element={<ForYouPage />} />
+                <Route path="/explore" element={<ExplorePage />} />
+                <Route path="/library" element={<LibraryPage />} />
+                <Route path="/settings" element={<SettingsPage />} />
+              </Routes>
+              <NavigationBar />
+            </div>
+          </Router>
+        </ErrorBoundary>
+      </AuthProvider>
     </Provider>
   );
 }

@@ -1,0 +1,1755 @@
+openapi: 3.0.3
+info:
+  title: Your API
+  version: 1.0.0
+  description: Your project description
+paths:
+  /api/v1/auth/changepassword/:
+    post:
+      operationId: changepassword_create
+      description: |-
+        API view to handle password change requests.
+
+        This view allows authenticated users to change their password.
+        It uses the ChangePasswordSerializer to validate the input data
+        and update the user's password if the validation is successful.
+
+        Methods:
+        - POST: Change the user's password.
+      tags:
+        - changepassword
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ChangePassword"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/ChangePassword"
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/ChangePassword"
+        required: true
+      security:
+        - jwtAuth: []
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ChangePassword"
+          description: ""
+  /api/v1/auth/get-verification-code/:
+    post:
+      operationId: get_verification_code_create
+      description: View to handle getting the verification code.
+      tags:
+        - get-verification-code
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SendVerificationCode"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/SendVerificationCode"
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/SendVerificationCode"
+        required: true
+      security:
+        - jwtAuth: []
+        - {}
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SendVerificationCode"
+          description: ""
+  /api/v1/auth/login/:
+    post:
+      operationId: login_create
+      description: |-
+        View for user login.
+
+        Allows any user to log in by providing valid credentials.
+      tags:
+        - login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserLogin"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/UserLogin"
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/UserLogin"
+        required: true
+      security:
+        - jwtAuth: []
+        - {}
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserLogin"
+          description: ""
+  /api/v1/auth/refresh/:
+    post:
+      operationId: refresh_create
+      description: |-
+        Takes a refresh type JSON web token and returns an access type JSON web
+        token if the refresh token is valid.
+      tags:
+        - refresh
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TokenRefresh"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/TokenRefresh"
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/TokenRefresh"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TokenRefresh"
+          description: ""
+  /api/v1/auth/register/:
+    post:
+      operationId: register_create
+      description: |-
+        View for user registration.
+
+        Allows any user to register by providing the necessary details.
+      tags:
+        - register
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserRegistration"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/UserRegistration"
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/UserRegistration"
+        required: true
+      security:
+        - jwtAuth: []
+        - {}
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserRegistration"
+          description: ""
+  /api/v1/auth/reset-password/:
+    post:
+      operationId: reset_password_create
+      description: View to handle resetting the password.
+      tags:
+        - reset-password
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ResetPassword"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/ResetPassword"
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/ResetPassword"
+        required: true
+      security:
+        - jwtAuth: []
+        - {}
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResetPassword"
+          description: ""
+  /api/v1/auth/verify-phone/:
+    post:
+      operationId: verify_phone_create
+      description: View to handle phone verification.
+      tags:
+        - verify-phone
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PhoneVerification"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/PhoneVerification"
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/PhoneVerification"
+        required: true
+      security:
+        - jwtAuth: []
+        - {}
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PhoneVerification"
+          description: ""
+  /api/v1/book/authors/:
+    get:
+      operationId: authors_list
+      description: |-
+        ViewSet for managing `Author` objects.
+
+        Supports standard CRUD operations:
+          - `list` and `retrieve`: Publicly accessible.
+
+        Permissions are dynamically assigned based on the action.
+      parameters:
+        - name: page
+          required: false
+          in: query
+          description: A page number within the paginated result set.
+          schema:
+            type: integer
+        - name: page_size
+          required: false
+          in: query
+          description: Number of results to return per page.
+          schema:
+            type: integer
+        - name: search
+          required: false
+          in: query
+          description: A search term.
+          schema:
+            type: string
+      tags:
+        - authors
+      security:
+        - jwtAuth: []
+        - {}
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PaginatedAuthorListList"
+          description: ""
+  /api/v1/book/authors/{id}/:
+    get:
+      operationId: authors_retrieve
+      description: |-
+        ViewSet for managing `Author` objects.
+
+        Supports standard CRUD operations:
+          - `list` and `retrieve`: Publicly accessible.
+
+        Permissions are dynamically assigned based on the action.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      tags:
+        - authors
+      security:
+        - jwtAuth: []
+        - {}
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Author"
+          description: ""
+  /api/v1/book/authors/{id}/follow/:
+    get:
+      operationId: authors_follow_retrieve
+      description: Retrieves the follow status of a author for the authenticated user.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      tags:
+        - authors
+      security:
+        - jwtAuth: []
+      responses:
+        "200":
+          description: No response body
+    post:
+      operationId: authors_follow_create
+      description: Toggles the follow status of a author for the authenticated user.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      tags:
+        - authors
+      security:
+        - jwtAuth: []
+      responses:
+        "200":
+          description: No response body
+  /api/v1/book/authors/author_books/{author_id}/:
+    get:
+      operationId: authors_author_books_list
+      description: Overriding `list` to filter books by author ID.
+      parameters:
+        - in: path
+          name: author_id
+          schema:
+            type: integer
+          required: true
+        - name: page
+          required: false
+          in: query
+          description: A page number within the paginated result set.
+          schema:
+            type: integer
+        - name: page_size
+          required: false
+          in: query
+          description: Number of results to return per page.
+          schema:
+            type: integer
+        - name: search
+          required: false
+          in: query
+          description: A search term.
+          schema:
+            type: string
+      tags:
+        - authors
+      security:
+        - jwtAuth: []
+        - {}
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PaginatedBookListList"
+          description: ""
+  /api/v1/book/books/:
+    get:
+      operationId: books_list
+      description: |-
+        ViewSet for managing `Book` objects.
+
+        Supports the following actions:
+          - `list` and `retrieve`: Publicly accessible, includes search on `isbn` and `title` fields.
+
+        Custom serializer selection based on action.
+      parameters:
+        - name: page
+          required: false
+          in: query
+          description: A page number within the paginated result set.
+          schema:
+            type: integer
+        - name: page_size
+          required: false
+          in: query
+          description: Number of results to return per page.
+          schema:
+            type: integer
+        - name: search
+          required: false
+          in: query
+          description: A search term.
+          schema:
+            type: string
+      tags:
+        - books
+      security:
+        - jwtAuth: []
+        - {}
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PaginatedBookListList"
+          description: ""
+  /api/v1/book/books/{id}/:
+    get:
+      operationId: books_retrieve
+      description: |-
+        ViewSet for managing `Book` objects.
+
+        Supports the following actions:
+          - `list` and `retrieve`: Publicly accessible, includes search on `isbn` and `title` fields.
+
+        Custom serializer selection based on action.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      tags:
+        - books
+      security:
+        - jwtAuth: []
+        - {}
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Book"
+          description: ""
+  /api/v1/book/books/{id}/like/:
+    get:
+      operationId: books_like_retrieve
+      description: Retrieves the like status of a book for the authenticated user.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      tags:
+        - books
+      security:
+        - jwtAuth: []
+      responses:
+        "200":
+          description: No response body
+    post:
+      operationId: books_like_create
+      description: Toggles the like status of a book for the authenticated user.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      tags:
+        - books
+      security:
+        - jwtAuth: []
+      responses:
+        "200":
+          description: No response body
+  /api/v1/book/books/{id}/rate/:
+    post:
+      operationId: books_rate_create
+      description: |-
+        ViewSet for managing `Book` objects.
+
+        Supports the following actions:
+          - `list` and `retrieve`: Publicly accessible, includes search on `isbn` and `title` fields.
+
+        Custom serializer selection based on action.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+        - in: query
+          name: search
+          schema:
+            type: string
+          description: Search in `isbn` and `title` fields
+      tags:
+        - books
+      security:
+        - jwtAuth: []
+        - {}
+      responses:
+        "200":
+          description: No response body
+  /api/v1/book/books/{id}/rating/:
+    get:
+      operationId: books_rating_retrieve
+      description: |-
+        ViewSet for managing `Book` objects.
+
+        Supports the following actions:
+          - `list` and `retrieve`: Publicly accessible, includes search on `isbn` and `title` fields.
+
+        Custom serializer selection based on action.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      tags:
+        - books
+      security:
+        - jwtAuth: []
+        - {}
+      responses:
+        "200":
+          description: No response body
+  /api/v1/book/books/book-formats/:
+    get:
+      operationId: books_book_formats_list
+      description: |-
+        ViewSet for managing `BookFormat` objects.
+
+        Supports standard CRUD operations:
+          - `list` and `retrieve`: Publicly accessible.
+
+        Permissions are dynamically assigned based on the action.
+      parameters:
+        - name: page
+          required: false
+          in: query
+          description: A page number within the paginated result set.
+          schema:
+            type: integer
+        - name: page_size
+          required: false
+          in: query
+          description: Number of results to return per page.
+          schema:
+            type: integer
+        - name: search
+          required: false
+          in: query
+          description: A search term.
+          schema:
+            type: string
+      tags:
+        - books
+      security:
+        - jwtAuth: []
+        - {}
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PaginatedBookFormatList"
+          description: ""
+  /api/v1/book/books/book-formats/{id}/:
+    get:
+      operationId: books_book_formats_retrieve
+      description: |-
+        ViewSet for managing `BookFormat` objects.
+
+        Supports standard CRUD operations:
+          - `list` and `retrieve`: Publicly accessible.
+
+        Permissions are dynamically assigned based on the action.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      tags:
+        - books
+      security:
+        - jwtAuth: []
+        - {}
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BookFormat"
+          description: ""
+  /api/v1/book/genres/:
+    get:
+      operationId: genres_list
+      description: |-
+        ViewSet for managing `Genre` objects.
+
+        Supports standard CRUD operations:
+          - `list` and `retrieve`: Publicly accessible.
+
+        Permissions are dynamically assigned based on the action.
+      parameters:
+        - name: page
+          required: false
+          in: query
+          description: A page number within the paginated result set.
+          schema:
+            type: integer
+        - name: page_size
+          required: false
+          in: query
+          description: Number of results to return per page.
+          schema:
+            type: integer
+        - name: search
+          required: false
+          in: query
+          description: A search term.
+          schema:
+            type: string
+      tags:
+        - genres
+      security:
+        - jwtAuth: []
+        - {}
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PaginatedGenreList"
+          description: ""
+  /api/v1/book/genres/{id}/:
+    get:
+      operationId: genres_retrieve
+      description: |-
+        ViewSet for managing `Genre` objects.
+
+        Supports standard CRUD operations:
+          - `list` and `retrieve`: Publicly accessible.
+
+        Permissions are dynamically assigned based on the action.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      tags:
+        - genres
+      security:
+        - jwtAuth: []
+        - {}
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Genre"
+          description: ""
+  /api/v1/book/genres/{id}/follow/:
+    get:
+      operationId: genres_follow_retrieve
+      description: Retrieves the follow status of a genre for the authenticated user.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      tags:
+        - genres
+      security:
+        - jwtAuth: []
+      responses:
+        "200":
+          description: No response body
+    post:
+      operationId: genres_follow_create
+      description: Toggles the follow status of a genre for the authenticated user.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      tags:
+        - genres
+      security:
+        - jwtAuth: []
+      responses:
+        "200":
+          description: No response body
+  /api/v1/book/genres/genre_books/{genre_id}/:
+    get:
+      operationId: genres_genre_books_list
+      description: Overriding `list` to filter books by genre ID.
+      parameters:
+        - in: path
+          name: genre_id
+          schema:
+            type: integer
+          required: true
+        - name: page
+          required: false
+          in: query
+          description: A page number within the paginated result set.
+          schema:
+            type: integer
+        - name: page_size
+          required: false
+          in: query
+          description: Number of results to return per page.
+          schema:
+            type: integer
+        - name: search
+          required: false
+          in: query
+          description: A search term.
+          schema:
+            type: string
+      tags:
+        - genres
+      security:
+        - jwtAuth: []
+        - {}
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PaginatedBookListList"
+          description: ""
+  /api/v1/book/library/:
+    get:
+      operationId: library_list
+      description: |-
+        ViewSet for managing the user's library.
+
+        Supports:
+          - CRUD operations for library books.
+          - Add and remove books from the library.
+          - Update reading progress.
+      parameters:
+        - name: page
+          required: false
+          in: query
+          description: A page number within the paginated result set.
+          schema:
+            type: integer
+        - name: page_size
+          required: false
+          in: query
+          description: Number of results to return per page.
+          schema:
+            type: integer
+        - name: search
+          required: false
+          in: query
+          description: A search term.
+          schema:
+            type: string
+      tags:
+        - library
+      security:
+        - jwtAuth: []
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PaginatedLibraryList"
+          description: ""
+    post:
+      operationId: library_create
+      description: |-
+        ViewSet for managing the user's library.
+
+        Supports:
+          - CRUD operations for library books.
+          - Add and remove books from the library.
+          - Update reading progress.
+      tags:
+        - library
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Library"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/Library"
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/Library"
+        required: true
+      security:
+        - jwtAuth: []
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Library"
+          description: ""
+  /api/v1/book/library/{id}/:
+    get:
+      operationId: library_retrieve
+      description: |-
+        ViewSet for managing the user's library.
+
+        Supports:
+          - CRUD operations for library books.
+          - Add and remove books from the library.
+          - Update reading progress.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      tags:
+        - library
+      security:
+        - jwtAuth: []
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Library"
+          description: ""
+    patch:
+      operationId: library_partial_update
+      description: Updates the reading progress for a book in the library.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      tags:
+        - library
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PatchedLibrary"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/PatchedLibrary"
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/PatchedLibrary"
+      security:
+        - jwtAuth: []
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Library"
+          description: ""
+    delete:
+      operationId: library_destroy
+      description: |-
+        ViewSet for managing the user's library.
+
+        Supports:
+          - CRUD operations for library books.
+          - Add and remove books from the library.
+          - Update reading progress.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      tags:
+        - library
+      security:
+        - jwtAuth: []
+      responses:
+        "204":
+          description: No response body
+  /api/v1/book/library/{id}/add-to-library/:
+    post:
+      operationId: library_add_to_library_create
+      description: Allows the authenticated user to add a book to their library.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      tags:
+        - library
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Library"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/Library"
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/Library"
+        required: true
+      security:
+        - jwtAuth: []
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Library"
+          description: ""
+  /api/v1/book/library/{id}/remove-from-library/:
+    post:
+      operationId: library_remove_from_library_create
+      description: Allows the authenticated user to remove a book from their library.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      tags:
+        - library
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Library"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/Library"
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/Library"
+        required: true
+      security:
+        - jwtAuth: []
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Library"
+          description: ""
+  /api/v1/book/notifications/:
+    get:
+      operationId: notifications_list
+      parameters:
+        - name: page
+          required: false
+          in: query
+          description: A page number within the paginated result set.
+          schema:
+            type: integer
+        - name: page_size
+          required: false
+          in: query
+          description: Number of results to return per page.
+          schema:
+            type: integer
+        - name: search
+          required: false
+          in: query
+          description: A search term.
+          schema:
+            type: string
+      tags:
+        - notifications
+      security:
+        - jwtAuth: []
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PaginatedNotificationList"
+          description: ""
+  /api/v1/book/publishers/:
+    get:
+      operationId: publishers_list
+      description: |-
+        ViewSet for managing `Publisher` objects.
+
+        Supports standard CRUD operations:
+          - `list` and `retrieve`: Publicly accessible, includes search on `name` field.
+
+        Permissions are dynamically assigned based on the action.
+      parameters:
+        - name: page
+          required: false
+          in: query
+          description: A page number within the paginated result set.
+          schema:
+            type: integer
+        - name: page_size
+          required: false
+          in: query
+          description: Number of results to return per page.
+          schema:
+            type: integer
+        - name: search
+          required: false
+          in: query
+          description: A search term.
+          schema:
+            type: string
+      tags:
+        - publishers
+      security:
+        - jwtAuth: []
+        - {}
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PaginatedPublisherListList"
+          description: ""
+  /api/v1/book/publishers/{id}/:
+    get:
+      operationId: publishers_retrieve
+      description: |-
+        ViewSet for managing `Publisher` objects.
+
+        Supports standard CRUD operations:
+          - `list` and `retrieve`: Publicly accessible, includes search on `name` field.
+
+        Permissions are dynamically assigned based on the action.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      tags:
+        - publishers
+      security:
+        - jwtAuth: []
+        - {}
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Publisher"
+          description: ""
+  /api/v1/book/publishers/{id}/follow/:
+    get:
+      operationId: publishers_follow_retrieve
+      description:
+        Retrieves the follow status of a publisher for the authenticated
+        user.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      tags:
+        - publishers
+      security:
+        - jwtAuth: []
+      responses:
+        "200":
+          description: No response body
+    post:
+      operationId: publishers_follow_create
+      description:
+        Toggles the follow status of a publisher for the authenticated
+        user.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      tags:
+        - publishers
+      security:
+        - jwtAuth: []
+      responses:
+        "200":
+          description: No response body
+  /api/v1/book/publishers/publisher_books/{publisher_id}/:
+    get:
+      operationId: publishers_publisher_books_list
+      description: Overriding `list` to filter books by publisher ID.
+      parameters:
+        - name: page
+          required: false
+          in: query
+          description: A page number within the paginated result set.
+          schema:
+            type: integer
+        - name: page_size
+          required: false
+          in: query
+          description: Number of results to return per page.
+          schema:
+            type: integer
+        - in: path
+          name: publisher_id
+          schema:
+            type: integer
+          required: true
+        - name: search
+          required: false
+          in: query
+          description: A search term.
+          schema:
+            type: string
+      tags:
+        - publishers
+      security:
+        - jwtAuth: []
+        - {}
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PaginatedBookListList"
+          description: ""
+  /api/v1/book/search/:
+    get:
+      operationId: search_retrieve
+      description: API view to search in authors, books, publishers, and genres.
+      parameters:
+        - in: query
+          name: q
+          schema:
+            type: string
+          description: Search in `books`, `authors`, `publishers` and `genres`
+      tags:
+        - search
+      security:
+        - jwtAuth: []
+        - {}
+      responses:
+        "200":
+          description: No response body
+  /api/v1/book/suggest/:
+    get:
+      operationId: suggest_retrieve
+      description: |-
+        API view to suggest books based on various criteria.
+
+        This view suggests books based on likes, rating, added in people's library, publisher, genre, format, and more.
+        It returns a maximum of 10 books.
+      tags:
+        - suggest
+      security:
+        - jwtAuth: []
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BookList"
+          description: ""
+components:
+  schemas:
+    Author:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        image:
+          type: string
+          format: uri
+          nullable: true
+        name:
+          type: string
+          maxLength: 100
+        bio:
+          type: string
+          nullable: true
+          title: Biography
+        birthdate:
+          type: string
+          format: date
+          nullable: true
+        email:
+          type: string
+          format: email
+          nullable: true
+          maxLength: 254
+      required:
+        - id
+        - name
+    AuthorList:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        image:
+          type: string
+          format: uri
+          nullable: true
+        name:
+          type: string
+          maxLength: 100
+      required:
+        - id
+        - name
+    Book:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          maxLength: 500
+        about:
+          type: string
+          nullable: true
+        cover:
+          type: string
+          format: uri
+          nullable: true
+          title: Cover Image
+        isbn:
+          type: string
+          pattern: ^\d+$
+          maxLength: 20
+        synopsis:
+          type: string
+          nullable: true
+        published:
+          type: string
+          format: date
+          title: Published Date
+        pages:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          title: Number of Pages
+        author:
+          $ref: "#/components/schemas/AuthorList"
+        publisher:
+          $ref: "#/components/schemas/PublisherList"
+        genre:
+          $ref: "#/components/schemas/Genre"
+        book_format:
+          $ref: "#/components/schemas/BookFormat"
+        likes_count:
+          type: integer
+          readOnly: true
+        average_rating:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,1}(?:\.\d{0,1})?$
+          readOnly: true
+      required:
+        - author
+        - average_rating
+        - book_format
+        - genre
+        - id
+        - isbn
+        - likes_count
+        - pages
+        - published
+        - publisher
+        - title
+    BookFormat:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        format_name:
+          type: string
+          maxLength: 50
+      required:
+        - format_name
+        - id
+    BookList:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          maxLength: 500
+        cover:
+          type: string
+          format: uri
+          nullable: true
+          title: Cover Image
+        about:
+          type: string
+          nullable: true
+        author_name:
+          type: string
+          readOnly: true
+        publisher_name:
+          type: string
+          readOnly: true
+        likes_count:
+          type: integer
+          readOnly: true
+      required:
+        - author_name
+        - id
+        - likes_count
+        - publisher_name
+        - title
+    CategoryEnum:
+      enum:
+        - 1
+        - 2
+        - 3
+      type: integer
+      description: |-
+        * `1` - Currently Reading
+        * `2` - Want to Read
+        * `3` - Finished
+    ChangePassword:
+      type: object
+      properties:
+        password:
+          type: string
+          writeOnly: true
+        new_password:
+          type: string
+          writeOnly: true
+        confirm_password:
+          type: string
+          writeOnly: true
+        result:
+          type: string
+          readOnly: true
+      required:
+        - confirm_password
+        - new_password
+        - password
+        - result
+    Genre:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          title: Genre
+          maxLength: 50
+      required:
+        - id
+        - name
+    Library:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        book:
+          type: integer
+        book_title:
+          type: string
+          readOnly: true
+        author_name:
+          type: string
+          readOnly: true
+        cover:
+          type: string
+          format: uri
+          readOnly: true
+        category:
+          $ref: "#/components/schemas/CategoryEnum"
+        pages_read:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          description: Number of pages the user has read.
+        progress:
+          type: number
+          format: double
+          readOnly: true
+          description: Progress as a percentage of the book completed.
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+        - author_name
+        - book
+        - book_title
+        - cover
+        - created_at
+        - id
+        - progress
+    Notification:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        user:
+          type: integer
+        message:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        is_read:
+          type: boolean
+      required:
+        - created_at
+        - id
+        - message
+        - user
+    PaginatedAuthorListList:
+      type: object
+      required:
+        - count
+        - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/AuthorList"
+    PaginatedBookFormatList:
+      type: object
+      required:
+        - count
+        - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/BookFormat"
+    PaginatedBookListList:
+      type: object
+      required:
+        - count
+        - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/BookList"
+    PaginatedGenreList:
+      type: object
+      required:
+        - count
+        - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/Genre"
+    PaginatedLibraryList:
+      type: object
+      required:
+        - count
+        - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/Library"
+    PaginatedNotificationList:
+      type: object
+      required:
+        - count
+        - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/Notification"
+    PaginatedPublisherListList:
+      type: object
+      required:
+        - count
+        - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/PublisherList"
+    PatchedLibrary:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        book:
+          type: integer
+        book_title:
+          type: string
+          readOnly: true
+        author_name:
+          type: string
+          readOnly: true
+        cover:
+          type: string
+          format: uri
+          readOnly: true
+        category:
+          $ref: "#/components/schemas/CategoryEnum"
+        pages_read:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          description: Number of pages the user has read.
+        progress:
+          type: number
+          format: double
+          readOnly: true
+          description: Progress as a percentage of the book completed.
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+    PhoneVerification:
+      type: object
+      properties:
+        phone:
+          type: string
+        verification_code:
+          type: string
+      required:
+        - phone
+        - verification_code
+    Publisher:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        image:
+          type: string
+          format: uri
+          nullable: true
+        name:
+          type: string
+          maxLength: 100
+        about:
+          type: string
+          nullable: true
+        address:
+          type: string
+          nullable: true
+        website:
+          type: string
+          format: uri
+          nullable: true
+          maxLength: 200
+      required:
+        - id
+        - name
+    PublisherList:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        image:
+          type: string
+          format: uri
+          nullable: true
+        name:
+          type: string
+          maxLength: 100
+      required:
+        - id
+        - name
+    ResetPassword:
+      type: object
+      properties:
+        phone:
+          type: string
+        verification_code:
+          type: string
+        new_password:
+          type: string
+          writeOnly: true
+          minLength: 8
+        confirm_password:
+          type: string
+          writeOnly: true
+          minLength: 8
+      required:
+        - confirm_password
+        - new_password
+        - phone
+        - verification_code
+    SendVerificationCode:
+      type: object
+      properties:
+        phone:
+          type: string
+      required:
+        - phone
+    TokenRefresh:
+      type: object
+      properties:
+        access:
+          type: string
+          readOnly: true
+        refresh:
+          type: string
+          writeOnly: true
+      required:
+        - access
+        - refresh
+    UserLogin:
+      type: object
+      properties:
+        phone:
+          type: string
+        password:
+          type: string
+          writeOnly: true
+        access:
+          type: string
+          readOnly: true
+        refresh:
+          type: string
+          readOnly: true
+        user_type:
+          allOf:
+            - $ref: "#/components/schemas/UserTypeEnum"
+          readOnly: true
+      required:
+        - access
+        - password
+        - phone
+        - refresh
+        - user_type
+    UserRegistration:
+      type: object
+      properties:
+        phone:
+          type: string
+          maxLength: 15
+        password:
+          type: string
+          writeOnly: true
+          minLength: 8
+        result:
+          type: string
+          readOnly: true
+      required:
+        - password
+        - phone
+        - result
+    UserTypeEnum:
+      enum:
+        - 1
+        - 2
+      type: integer
+      description: |-
+        * `1` - User
+        * `2` - Admin
+  securitySchemes:
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
