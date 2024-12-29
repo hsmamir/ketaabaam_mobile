@@ -35,12 +35,22 @@ export const authAPI = {
 };
 
 export const libraryAPI = {
-  getLibrary: () =>
-    api.get('/api/v1/book/library/'),
-  addToLibrary: (bookId: number, category: number) =>
-    api.post('/api/v1/book/library/', { book: bookId, category }),
-  updateProgress: (id: number, pagesRead: number) =>
-    api.patch(`/api/v1/book/library/${id}/`, { pages_read: pagesRead }),
+  getLibrary: (page?: number, page_size?: number, search?: string) =>
+    api.get('/api/v1/book/library/', {
+      params: { page, page_size, search },
+    }),
+  createLibraryBook: (libraryData: any) =>
+    api.post('/api/v1/book/library/', libraryData),
+  getLibraryBook: (id: number) =>
+    api.get(`/api/v1/book/library/${id}/`),
+  updateLibraryBook: (id: number, updatedData: any) =>
+    api.patch(`/api/v1/book/library/${id}/`, updatedData),
+  deleteLibraryBook: (id: number) =>
+    api.delete(`/api/v1/book/library/${id}/`),
+  addToLibrary: (id: number, libraryData: any) =>
+    api.post(`/api/v1/book/library/${id}/add-to-library/`, libraryData),
+  removeFromLibrary: (id: number, libraryData: any) =>
+    api.post(`/api/v1/book/library/${id}/remove-from-library/`, libraryData),
 };
 
 export default api;
