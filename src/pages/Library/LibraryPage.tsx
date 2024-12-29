@@ -4,6 +4,7 @@ import { LibraryBook, PaginatedLibraryList } from "../../types";
 import LibraryTabs from "./components/LibraryTabs";
 import BookProgress from "./components/BookProgress";
 import AddBookModal from "./components/AddBookModal"; // Optional: For adding books
+import Loading from '../../components/Loading';
 import { useAuth } from "../../context/AuthContext";
 
 export default function LibraryPage() {
@@ -57,7 +58,7 @@ export default function LibraryPage() {
   };
 
   if (loading) {
-    return <div className="p-4">Loading your library...</div>;
+    return <Loading />;
   }
 
   if (!isAuthenticated) {
@@ -76,7 +77,7 @@ export default function LibraryPage() {
           onClick={() => setIsAddModalOpen(true)}
           className="px-4 py-2 bg-blue-600 text-white rounded"
         >
-          Add Book
+          اضافه کردن کتاب
         </button>
       </div>
       <form onSubmit={handleSearch} className="px-4 mb-4">

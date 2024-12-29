@@ -1,11 +1,7 @@
-import { useEffect, useState } from 'react';
-import { Book } from '../../../types';
-import { Star } from 'lucide-react';
-import { booksAPI } from '../../../services/api';
-
-interface Props {
-  // Remove books prop if fetching internally
-}
+import React, { useEffect, useState } from "react";
+import { Book } from "../../../types";
+import { booksAPI } from "../../../services/api";
+import Loading from "../../../components/Loading";
 
 export default function RecommendedSection() {
   const [books, setBooks] = useState<Book[]>([]);
@@ -17,7 +13,7 @@ export default function RecommendedSection() {
         const response = await booksAPI.getSuggestions();
         setBooks(response.data);
       } catch (error) {
-        console.error('Error fetching suggested books:', error);
+        console.error("Error fetching suggested books:", error);
       } finally {
         setLoading(false);
       }
@@ -26,7 +22,7 @@ export default function RecommendedSection() {
   }, []);
 
   if (loading) {
-    return <div className="p-4">صبر کن</div>;
+    return <Loading />;
   }
 
   return (
@@ -34,9 +30,15 @@ export default function RecommendedSection() {
       <h2 className="text-xl font-semibold mb-4">پیشنهاد برا تو</h2>
       <div className="space-y-4">
         {books.map((book) => (
-          <div key={book.id} className="flex gap-4 bg-white rounded-lg p-3 shadow-sm">
+          <div
+            key={book.id}
+            className="flex gap-4 bg-white rounded-lg p-3 shadow-sm"
+          >
             <img
-              src={book.cover || 'https://images.unsplash.com/photo-1543002588-bfa74002ed7e?auto=format&fit=crop&w=200'}
+              src={
+                book.cover ||
+                "https://images.unsplash.com/photo-1543002588-bfa74002ed7e?auto=format&fit=crop&w=200"
+              }
               alt={book.title}
               className="w-20 h-28 object-cover rounded"
             />
@@ -44,7 +46,6 @@ export default function RecommendedSection() {
               <h3 className="font-medium">{book.title}</h3>
               <p className="text-sm text-gray-600">{book.author_name}</p>
               <div className="flex items-center mt-2">
-                <Star className="w-4 h-4 text-yellow-400 fill-current" />
                 <span className="text-sm ml-1">{book.likes_count}</span>
               </div>
             </div>
