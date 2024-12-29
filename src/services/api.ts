@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:8000/api/v1';
+const BASE_URL = 'https://api.ketaabaam.com';
 
 const api = axios.create({
   baseURL: BASE_URL,
@@ -19,32 +19,32 @@ api.interceptors.request.use((config) => {
 });
 
 export const authAPI = {
-  login: (phone: string, password: string) => 
-    api.post('/auth/login/', { phone, password }),
-  register: (phone: string, password: string) => 
-    api.post('/auth/register/', { phone, password }),
-  refreshToken: (refresh: string) => 
-    api.post('/auth/refresh/', { refresh }),
+  login: (phone: string, password: string) =>
+    api.post('/api/v1/auth/login/', { phone, password }),
+  register: (phone: string, password: string) =>
+    api.post('/api/v1/auth/register/', { phone, password }),
+  refreshToken: (refresh: string) =>
+    api.post('/api/v1/auth/refresh/', { refresh }),
 };
 
 export const booksAPI = {
-  getBooks: (page = 1, search?: string) => 
-    api.get('/book/books/', { params: { page, search } }),
-  getBookDetails: (id: number) => 
-    api.get(`/book/books/${id}/`),
-  likeBook: (id: number) => 
-    api.post(`/book/books/${id}/like/`),
-  rateBook: (id: number, rating: number) => 
-    api.post(`/book/books/${id}/rate/`, { rating }),
+  getBooks: (page = 1, search?: string) =>
+    api.get('/api/v1/book/books/', { params: { page, search } }),
+  getBookDetails: (id: number) =>
+    api.get(`/api/v1/book/books/${id}/`),
+  likeBook: (id: number) =>
+    api.post(`/api/v1/book/books/${id}/like/`),
+  rateBook: (id: number, rating: number) =>
+    api.post(`/api/v1/book/books/${id}/rate/`, { rating }),
 };
 
 export const libraryAPI = {
-  getLibrary: () => 
-    api.get('/book/library/'),
-  addToLibrary: (bookId: number, category: number) => 
-    api.post('/book/library/', { book: bookId, category }),
-  updateProgress: (id: number, pagesRead: number) => 
-    api.patch(`/book/library/${id}/`, { pages_read: pagesRead }),
+  getLibrary: () =>
+    api.get('/api/v1/book/library/'),
+  addToLibrary: (bookId: number, category: number) =>
+    api.post('/api/v1/book/library/', { book: bookId, category }),
+  updateProgress: (id: number, pagesRead: number) =>
+    api.patch(`/api/v1/book/library/${id}/`, { pages_read: pagesRead }),
 };
 
 export default api;
