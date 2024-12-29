@@ -21,8 +21,8 @@ export default function BookList({ title, books }: Props) {
               />
               <div>
                 <h3 className="font-medium">{book.title}</h3>
-                <p className="text-sm text-gray-600">{book.author?.name || 'Unknown Author'}</p>
-                <p className="text-xs text-gray-500 mt-1">{book.genre?.name || 'Unknown Genre'}</p>
+                <p className="text-sm text-gray-600">{book.author?.name || 'نویسنده نامشخص'}</p>
+                <p className="text-xs text-gray-500 mt-1">{book.genre?.name || 'موضوع نامشخص'}</p>
               </div>
             </div>
           );

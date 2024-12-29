@@ -32,7 +32,7 @@ export default function ForYouPage() {
   }, [isAuthenticated]);
 
   if (loading) {
-    return <div className="p-4">Loading...</div>;
+    return <div className="p-4">صبر کن</div>;
   }
 
   if (!isAuthenticated) {

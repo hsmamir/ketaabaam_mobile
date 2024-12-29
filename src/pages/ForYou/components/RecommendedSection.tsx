@@ -26,12 +26,12 @@ export default function RecommendedSection() {
   }, []);
 
   if (loading) {
-    return <div className="p-4">Loading...</div>;
+    return <div className="p-4">صبر کن</div>;
   }
 
   return (
     <section className="px-4 py-6">
-      <h2 className="text-xl font-semibold mb-4">Recommended for You</h2>
+      <h2 className="text-xl font-semibold mb-4">پیشنهاد برا تو</h2>
       <div className="space-y-4">
         {books.map((book) => (
           <div key={book.id} className="flex gap-4 bg-white rounded-lg p-3 shadow-sm">

@@ -8,7 +8,7 @@ interface Props {
 export default function PopularSection({ books }: Props) {
   return (
     <section className="px-4 py-6">
-      <h2 className="text-xl font-semibold mb-4">Popular Now</h2>
+      <h2 className="text-xl font-semibold mb-4">پرطرفدارا</h2>
       <div className="flex gap-4 overflow-x-auto pb-4">
         {books.map((book) => (
           <div key={book.id} className="flex-shrink-0 w-32">

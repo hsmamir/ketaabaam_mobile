@@ -15,11 +15,11 @@ export default function SettingsPage() {
   return (
     <div className="pb-20">
       <div className="p-4 bg-white">
-        <h2 className="text-xl font-semibold mb-4">Settings</h2>
+        <h2 className="text-xl font-semibold mb-4">تنظیمات</h2>
         
         <div className="space-y-6">
           <section>
-            <h3 className="text-sm font-medium text-gray-500 mb-2">Account</h3>
+            <h3 className="text-sm font-medium text-gray-500 mb-2">حساب</h3>
             <div className="space-y-1">
               <SettingsItem
                 icon={<User className="w-5 h-5" />}
@@ -38,7 +38,7 @@ export default function SettingsPage() {
           </section>
 
           <section>
-            <h3 className="text-sm font-medium text-gray-500 mb-2">Reading</h3>
+            <h3 className="text-sm font-medium text-gray-500 mb-2">مطالعه</h3>
             <div className="space-y-1">
               <SettingsItem
                 icon={<BookOpen className="w-5 h-5" />}
@@ -48,7 +48,7 @@ export default function SettingsPage() {
           </section>
 
           <section>
-            <h3 className="text-sm font-medium text-gray-500 mb-2">Support</h3>
+            <h3 className="text-sm font-medium text-gray-500 mb-2">پشتیبانی</h3>
             <div className="space-y-1">
               <SettingsItem
                 icon={<HelpCircle className="w-5 h-5" />}
@@ -62,7 +62,7 @@ export default function SettingsPage() {
             className="flex items-center space-x-3 w-full px-4 py-3 text-red-600"
           >
             <LogOut className="w-5 h-5" />
-            <span>Log Out</span>
+            <span>خروج</span>
           </button>
         </div>
       </div>

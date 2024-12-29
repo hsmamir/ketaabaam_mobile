@@ -19,10 +19,10 @@ export default function LoginForm() {
 
   return (
     <form onSubmit={handleSubmit} className="p-4">
-      <h2 className="text-xl mb-4">Login</h2>
+      <h2 className="text-xl mb-4">ورود</h2>
       {error && <div className="text-red-500 mb-2">{error}</div>}
       <div className="mb-2">
-        <label className="block text-sm">Phone</label>
+        <label className="block text-sm">شماره موبایل</label>
         <input
           type="text"
           value={phone}
@@ -33,7 +33,7 @@ export default function LoginForm() {
         />
       </div>
       <div className="mb-2">
-        <label className="block text-sm">Password</label>
+        <label className="block text-sm">رمز عبور</label>
         <input
           type="password"
           value={password}
@@ -44,7 +44,7 @@ export default function LoginForm() {
         />
       </div>
       <button type="submit" className="mt-2 px-4 py-2 bg-blue-600 text-white rounded">
-        Login
+        ورود
       </button>
     </form>
   );

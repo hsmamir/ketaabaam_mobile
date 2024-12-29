@@ -7,7 +7,7 @@ export default function Header() {
         <button className="p-1">
           <ArrowLeft className="w-5 h-5" />
         </button>
-        <h1 className="text-lg font-medium">Explore Books</h1>
+        <h1 className="text-lg font-medium">کتابارو بگرد</h1>
       </div>
       <div className="mt-3 relative">
         <input
