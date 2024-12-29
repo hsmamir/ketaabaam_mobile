@@ -21,15 +21,17 @@ export default function ForYouPage() {
     fetchSuggestions();
   }, []);
 
+  const slicedBooks = suggestedBooks ? suggestedBooks.slice(0, 10) : [];
+
   if (loading) {
     return <div className="p-4">Loading...</div>;
   }
 
   return (
     <div className="pb-20">
-      <RecommendedSection books={suggestedBooks.slice(0, 3)} />
-      <PopularSection books={suggestedBooks.slice(3, 7)} />
-      <BookList title="Continue Reading" books={suggestedBooks.slice(7, 10)} />
+      <RecommendedSection />
+      <PopularSection books={slicedBooks.slice(3, 7)} />
+      <BookList title="Continue Reading" books={slicedBooks.slice(7, 10)} />
     </div>
   );
 }

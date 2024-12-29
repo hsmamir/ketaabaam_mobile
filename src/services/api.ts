@@ -36,6 +36,8 @@ export const booksAPI = {
     api.post(`/api/v1/book/books/${id}/like/`),
   rateBook: (id: number, rating: number) =>
     api.post(`/api/v1/book/books/${id}/rate/`, { rating }),
+  getSuggestions: () =>
+    api.get('/api/v1/book/suggest/'),
 };
 
 export const libraryAPI = {

@@ -1,11 +1,34 @@
+import { useEffect, useState } from 'react';
 import { Book } from '../../../types';
 import { Star } from 'lucide-react';
+import { booksAPI } from '../../../services/api';
 
 interface Props {
-  books: Book[];
+  // Remove books prop if fetching internally
 }
 
-export default function RecommendedSection({ books }: Props) {
+export default function RecommendedSection() {
+  const [books, setBooks] = useState<Book[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchSuggestions = async () => {
+      try {
+        const response = await booksAPI.getSuggestions();
+        setBooks(response.data);
+      } catch (error) {
+        console.error('Error fetching suggested books:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchSuggestions();
+  }, []);
+
+  if (loading) {
+    return <div className="p-4">Loading...</div>;
+  }
+
   return (
     <section className="px-4 py-6">
       <h2 className="text-xl font-semibold mb-4">Recommended for You</h2>
@@ -19,10 +42,10 @@ export default function RecommendedSection({ books }: Props) {
             />
             <div className="flex-1">
               <h3 className="font-medium">{book.title}</h3>
-              <p className="text-sm text-gray-600">{book.author.name}</p>
+              <p className="text-sm text-gray-600">{book.author_name}</p>
               <div className="flex items-center mt-2">
                 <Star className="w-4 h-4 text-yellow-400 fill-current" />
-                <span className="text-sm ml-1">{book.average_rating}</span>
+                <span className="text-sm ml-1">{book.likes_count}</span>
               </div>
             </div>
           </div>
