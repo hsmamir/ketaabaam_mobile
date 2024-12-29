@@ -13,8 +13,8 @@ api.interceptors.request.use((config) => {
 });
 
 export const booksAPI = {
-  getBooks: (page = 1, search?: string) =>
-    api.get('/api/v1/book/books/', { params: { page, search } }),
+  getBooks: (page = 1, page_size = 10, search?: string) =>
+    api.get('/api/v1/book/books/', { params: { page, page_size, search } }),
   getBookDetails: (id: number) =>
     api.get(`/api/v1/book/books/${id}/`),
   likeBook: (id: number) =>
