@@ -45,8 +45,8 @@ export default function ForYouPage() {
           className="mt-2 text-blue-500"
         >
           {showRegister
-            ? "Already have an account? Login"
-            : "No account? Register"}
+            ? "حساب کاربری دارید؟ ورود"
+            : "حساب کاربری ندارید؟ ثبت نام"}
         </button>
       </div>
     );
@@ -60,7 +60,7 @@ export default function ForYouPage() {
     <div className="pb-20">
       <RecommendedSection />
       <PopularSection books={slicedBooks.slice(3, 7)} />
-      <BookList title="Continue Reading" books={slicedBooks.slice(7, 10)} />
+      <BookList title="ادامه مطالعه" books={slicedBooks.slice(7, 10)} />
     </div>
   );
 }

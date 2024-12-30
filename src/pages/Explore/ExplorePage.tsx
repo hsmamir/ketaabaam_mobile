@@ -70,7 +70,7 @@ export default function ExplorePage() {
         />
       </form>
       {error && <div className="text-red-500 mb-4">{error}</div>}
-      <BookList title="Search Results" books={books} />
+      <BookList title="نتایج جستجو" books={books} />
       {loading && <div className="text-center mt-4">دارم میگردم</div>}
       {hasMore && !loading && (
         <div className="text-center mt-4">
