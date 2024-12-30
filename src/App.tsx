@@ -6,6 +6,9 @@ import ForYouPage from './pages/ForYou/ForYouPage';
 import LibraryPage from './pages/Library/LibraryPage';
 import SettingsPage from './pages/Settings/SettingsPage';
 import ExplorePage from './pages/Explore/ExplorePage';
+import BookDetailsPage from './pages/BookDetails/BookDetailsPage';
+import AuthorPage from './pages/Author/AuthorPage';
+import PublisherPage from './pages/Publisher/PublisherPage';
 import { AuthProvider } from './context/AuthContext';
 import ErrorBoundary from './components/ErrorBoundary';
 
@@ -21,6 +24,9 @@ export default function App() {
                 <Route path="/explore" element={<ExplorePage />} />
                 <Route path="/library" element={<LibraryPage />} />
                 <Route path="/settings" element={<SettingsPage />} />
+                <Route path="/books/:id" element={<BookDetailsPage />} />
+                <Route path="/authors/:id" element={<AuthorPage />} />
+                <Route path="/publishers/:id" element={<PublisherPage />} />
               </Routes>
               <NavigationBar />
             </div>

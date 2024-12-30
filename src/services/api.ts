@@ -36,21 +36,17 @@ export const authAPI = {
 
 export const libraryAPI = {
   getLibrary: (page?: number, page_size?: number, search?: string) =>
-    api.get('/api/v1/book/library/', {
-      params: { page, page_size, search },
-    }),
-  createLibraryBook: (libraryData: any) =>
-    api.post('/api/v1/book/library/', libraryData),
-  getLibraryBook: (id: number) =>
-    api.get(`/api/v1/book/library/${id}/`),
-  updateLibraryBook: (id: number, updatedData: any) =>
-    api.patch(`/api/v1/book/library/${id}/`, updatedData),
-  deleteLibraryBook: (id: number) =>
-    api.delete(`/api/v1/book/library/${id}/`),
-  addToLibrary: (id: number, libraryData: any) =>
-    api.post(`/api/v1/book/library/${id}/add-to-library/`, libraryData),
-  removeFromLibrary: (id: number, libraryData: any) =>
-    api.post(`/api/v1/book/library/${id}/remove-from-library/`, libraryData),
+    api.get('/api/v1/library/', { params: { page, page_size, search } }),
+};
+
+export const authorsAPI = {
+  getAuthorDetails: (id: number) =>
+    api.get(`/api/v1/authors/${id}/`),
+};
+
+export const publishersAPI = {
+  getPublisherDetails: (id: number) =>
+    api.get(`/api/v1/publishers/${id}/`),
 };
 
 export default api;

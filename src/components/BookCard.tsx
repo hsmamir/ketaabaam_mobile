@@ -1,13 +1,16 @@
+import { Link } from 'react-router-dom';
+
 interface BookCardProps {
+  id: number;
   title: string;
   author: string;
   imageUrl: string;
   size?: 'normal' | 'large';
 }
 
-export default function BookCard({ title, author, imageUrl, size = 'normal' }: BookCardProps) {
+export default function BookCard({ id, title, author, imageUrl, size = 'normal' }: BookCardProps) {
   return (
-    <div className={`flex flex-col ${size === 'large' ? 'w-48' : 'w-32'}`}>
+    <Link to={`/books/${id}`} className={`flex flex-col ${size === 'large' ? 'w-48' : 'w-32'}`}>
       <img
         src={imageUrl}
         alt={title}
@@ -17,6 +20,6 @@ export default function BookCard({ title, author, imageUrl, size = 'normal' }: B
       />
       <h3 className="mt-2 font-medium line-clamp-2">{title}</h3>
       <p className="text-sm text-gray-600">{author}</p>
-    </div>
+    </Link>
   );
 }
