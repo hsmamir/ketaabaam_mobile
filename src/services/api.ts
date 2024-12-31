@@ -17,6 +17,8 @@ export const booksAPI = {
     api.get('/api/v1/book/books/', { params: { page, page_size, search } }),
   getBookDetails: (id: number) =>
     api.get(`/api/v1/book/books/${id}/`),
+  getBookLikeStatus: (id: number) =>
+    api.get(`/api/v1/book/books/${id}/like/`),
   likeBook: (id: number) =>
     api.post(`/api/v1/book/books/${id}/like/`),
   rateBook: (id: number, rating: number) =>
