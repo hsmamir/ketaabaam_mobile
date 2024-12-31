@@ -36,7 +36,7 @@ export const authAPI = {
 
 export const libraryAPI = {
   getLibrary: (page?: number, page_size?: number, search?: string) =>
-    api.get('/api/v1/library/', { params: { page, page_size, search } }),
+    api.get('/api/v1/book/library/', { params: { page, page_size, search } }),
 };
 
 export const authorsAPI = {
