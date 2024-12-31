@@ -3,13 +3,12 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import { booksAPI } from "../../services/api";
 import { Book } from "../../types";
 import Loading from "../../components/Loading";
-import { ArrowLeft, Star, Heart } from "lucide-react";
+import { Star, Heart } from "lucide-react";
 
 export default function BookDetailsPage() {
   const { id } = useParams<{ id: string }>();
   const [book, setBook] = useState<Book | null>(null);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchBookDetails = async () => {
