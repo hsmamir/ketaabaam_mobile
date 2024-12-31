@@ -41,7 +41,7 @@ export const libraryAPI = {
 
 export const authorsAPI = {
   getAuthorDetails: (id: number) =>
-    api.get(`/api/v1/authors/${id}/`),
+    api.get(`/api/v1/book/authors/${id}/`),
 };
 
 export const publishersAPI = {

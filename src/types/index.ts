@@ -3,7 +3,13 @@ export * from './books';
 export * from './library';
 
 export interface Author {
+  id: number;
+  image: string;
   name: string;
+  bio: string;
+  birthdate: string;
+  email: string;
+
 }
 
 export interface Genre {
