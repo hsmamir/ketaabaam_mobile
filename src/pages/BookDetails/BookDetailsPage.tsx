@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { booksAPI } from "../../services/api";
 import { Book } from "../../types";
 import Loading from "../../components/Loading";
+import { ArrowLeft, Star, Heart } from "lucide-react";
 
 export default function BookDetailsPage() {
   const { id } = useParams<{ id: string }>();
   const [book, setBook] = useState<Book | null>(null);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchBookDetails = async () => {
@@ -29,37 +31,68 @@ export default function BookDetailsPage() {
   }
 
   if (!book) {
-    return <div>Book not found</div>;
+    return <div>کتاب پیدا نشد</div>;
   }
 
+  const renderStars = (rating: number) => {
+    const stars = [];
+    for (let i = 0; i < 5; i++) {
+      stars.push(
+        <Star
+          key={i}
+          className={`w-4 h-4 ${i < rating ? "text-yellow-500" : "text-gray-300"}`}
+        />
+      );
+    }
+    return stars;
+  };
+
   return (
-    <div className="p-4">
+    <div className="p-4 max-w-3xl mx-auto">
       <img
-        src={book.cover}
+        src={book.cover || 'https://images.unsplash.com/photo-1543002588-bfa74002ed7e?auto=format&fit=crop&w=200'}
         alt={book.title}
-        className="w-full h-64 object-cover rounded-lg"
+        className="w-full h-full object-cover"
       />
-      <h1 className="text-2xl font-semibold mt-4">{book.title}</h1>
-      <p className="text-sm text-gray-600 mt-2">{book.about}</p>
-      <p className="text-sm text-gray-600 mt-2">ISBN: {book.isbn}</p>
-      <p className="text-sm text-gray-600 mt-2">Published: {book.published}</p>
-      <p className="text-sm text-gray-600 mt-2">Pages: {book.pages}</p>
-      <p className="text-sm text-gray-600 mt-2">
-        Rating: {book.average_rating}
-      </p>
-      <p className="text-sm text-gray-600 mt-2">Likes: {book.likes_count}</p>
-      <Link
-        to={`/authors/${book.author.id}`}
-        className="text-blue-500 mt-2 block"
-      >
-        {book.author.name}
-      </Link>
-      <Link
-        to={`/publishers/${book.publisher.id}`}
-        className="text-blue-500 mt-2 block"
-      >
-        {book.publisher.name}
-      </Link>
+      <div className="p-6">
+        <h5 className="text-xl font-semibold mb-2 flex items-center">
+          {book.title}
+          <span className="ml-2 flex items-center">
+            {renderStars(Math.round(book.average_rating))}
+          </span>
+        </h5>
+        <p className="text-gray-600 mb-4">{book.about}</p>
+        <div className="grid grid-cols-2 gap-4 mb-4">
+          <p className="text-sm text-gray-600">شابک: {book.isbn}</p>
+          <p className="text-sm text-gray-600">تاریخ انتشار: {book.published}</p>
+          <p className="text-sm text-gray-600">تعداد صفحات: {book.pages}</p>
+          <p className="text-sm text-gray-600 flex items-center gap-1"><Heart className="w-4 h-4 text-red-500 mr-1" /> {book.likes_count}</p>
+        </div>
+        <div className="flex flex-wrap gap-2 mb-4">
+          {book.tags?.map((tag) => (
+            <span
+              key={tag}
+              className="bg-gray-200 text-gray-700 text-xs font-medium px-2 py-1 rounded"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+        <div className="flex flex-row gap-5">
+          <Link
+            to={`/authors/${book.author.id}`}
+            className="text-blue-500"
+          >
+            نویسنده: {book.author.name}
+          </Link>
+          <Link
+            to={`/publishers/${book.publisher.id}`}
+            className="text-blue-500"
+          >
+            ناشر: {book.publisher.name}
+          </Link>
+        </div>
+      </div>
     </div>
   );
 }
