@@ -78,7 +78,7 @@ export default function BookDetailsPage() {
             </span>
           ))}
         </div>
-        <div className="flex flex-row gap-5">
+        <div className="flex flex-row gap-4">
           <Link
             to={`/authors/${book.author.id}`}
             className="text-blue-500"
