@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import { booksAPI } from "../../services/api";
 import RecommendedSection from "./components/RecommendedSection";
 import PopularSection from "./components/PopularSection";
-import BookList from "./components/BookList";
+import BookList from "../../components/BookList";
 import LoginForm from "../../components/LoginForm";
 import RegisterForm from "../../components/RegisterForm";
 import Loading from "../../components/Loading";
 import { useAuth } from "../../context/AuthContext";
+import { Book } from "../../types";
 
 export default function ForYouPage() {
   const { isAuthenticated } = useAuth();

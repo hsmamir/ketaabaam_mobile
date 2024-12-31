@@ -1,3 +1,5 @@
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Book } from '../../../types';
 import { Heart } from 'lucide-react';
 
@@ -6,12 +8,22 @@ interface Props {
 }
 
 export default function PopularSection({ books }: Props) {
+  const navigate = useNavigate();
+
+  const handleBookClick = (bookId: string) => {
+    navigate(`/books/${bookId}`);
+  };
+
   return (
     <section className="px-4 py-6">
       <h2 className="text-xl font-semibold mb-4">پرطرفدارا</h2>
       <div className="flex gap-4 overflow-x-auto pb-4">
         {books.map((book) => (
-          <div key={book.id} className="flex-shrink-0 w-32">
+          <div
+            key={book.id}
+            className="flex-shrink-0 w-32 cursor-pointer"
+            onClick={() => handleBookClick(book.id)}
+          >
             <img
               src={book.cover || 'https://images.unsplash.com/photo-1543002588-bfa74002ed7e?auto=format&fit=crop&w=200'}
               alt={book.title}

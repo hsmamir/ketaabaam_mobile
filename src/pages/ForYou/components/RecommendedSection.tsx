@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import { Book } from "../../../types";
 import { booksAPI } from "../../../services/api";
 import Loading from "../../../components/Loading";
@@ -6,23 +7,35 @@ import Loading from "../../../components/Loading";
 export default function RecommendedSection() {
   const [books, setBooks] = useState<Book[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
+
+  const fetchSuggestions = useCallback(async () => {
+    try {
+      const response = await booksAPI.getSuggestions();
+      setBooks(response.data);
+    } catch (error) {
+      console.error("Error fetching suggested books:", error);
+      setError("Failed to load suggestions. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  }, []);
 
   useEffect(() => {
-    const fetchSuggestions = async () => {
-      try {
-        const response = await booksAPI.getSuggestions();
-        setBooks(response.data);
-      } catch (error) {
-        console.error("Error fetching suggested books:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
     fetchSuggestions();
-  }, []);
+  }, [fetchSuggestions]);
+
+  const handleBookClick = (bookId: string) => {
+    navigate(`/books/${bookId}`);
+  };
 
   if (loading) {
     return <Loading />;
+  }
+
+  if (error) {
+    return <div className="text-red-500">{error}</div>;
   }
 
   return (
@@ -32,7 +45,8 @@ export default function RecommendedSection() {
         {books.map((book) => (
           <div
             key={book.id}
-            className="flex gap-4 bg-white rounded-lg p-3 shadow-sm"
+            className="flex gap-4 bg-white rounded-lg p-3 shadow-sm cursor-pointer"
+            onClick={() => handleBookClick(book.id)}
           >
             <img
               src={
