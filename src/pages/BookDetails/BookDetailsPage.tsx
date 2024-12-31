@@ -59,7 +59,9 @@ export default function BookDetailsPage() {
       stars.push(
         <Star
           key={i}
-          className={`w-4 h-4 ${i < rating ? "text-yellow-500" : "text-gray-300"}`}
+          className={`w-4 h-4 ${
+            i < rating ? "text-yellow-500" : "text-gray-300"
+          }`}
         />
       );
     }
@@ -70,7 +72,10 @@ export default function BookDetailsPage() {
     <div>
       <div className="p-4 max-w-3xl mx-auto">
         <img
-          src={book.cover || 'https://images.unsplash.com/photo-1543002588-bfa74002ed7e?auto=format&fit=crop&w=200'}
+          src={
+            book.cover ||
+            "https://images.unsplash.com/photo-1543002588-bfa74002ed7e?auto=format&fit=crop&w=200"
+          }
           alt={book.title}
           className="w-full h-full object-cover"
         />
@@ -84,10 +89,19 @@ export default function BookDetailsPage() {
           <p className="text-gray-600 mb-4">{book.about}</p>
           <div className="grid grid-cols-2 gap-4 mb-4">
             <p className="text-sm text-gray-600">شابک: {book.isbn}</p>
-            <p className="text-sm text-gray-600">تاریخ انتشار: {book.published}</p>
+            <p className="text-sm text-gray-600">
+              تاریخ انتشار: {book.published}
+            </p>
             <p className="text-sm text-gray-600">تعداد صفحات: {book.pages}</p>
-            <p className="text-sm text-gray-600 flex items-center gap-1"><Heart className={`w-6 h-6 cursor-pointer ${liked ? "text-red-500" : "text-white"}`}
-              onClick={handleLike} /> {book.likes_count}</p>
+            <p className="text-sm text-gray-600 flex items-center gap-1">
+              <Heart
+                className={`w-6 h-6 cursor-pointer ${
+                  liked ? "text-red-500" : "text-gray-300"
+                }`}
+                onClick={handleLike}
+              />{" "}
+              {book.likes_count}
+            </p>
           </div>
           <div className="flex flex-wrap gap-2 mb-4">
             {book.tags?.map((tag) => (
@@ -100,10 +114,7 @@ export default function BookDetailsPage() {
             ))}
           </div>
           <div className="flex flex-row gap-4">
-            <Link
-              to={`/authors/${book.author.id}`}
-              className="text-blue-500"
-            >
+            <Link to={`/authors/${book.author.id}`} className="text-blue-500">
               نویسنده: {book.author.name}
             </Link>
             <Link
