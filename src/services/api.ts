@@ -46,7 +46,7 @@ export const authorsAPI = {
 
 export const publishersAPI = {
   getPublisherDetails: (id: number) =>
-    api.get(`/api/v1/publishers/${id}/`),
+    api.get(`/api/v1/book/publishers/${id}/`),
 };
 
 export default api;

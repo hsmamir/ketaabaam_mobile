@@ -40,9 +40,13 @@ export default function PublisherPage() {
         className="w-full h-64 object-cover rounded-lg"
       />
       <h1 className="text-2xl font-semibold mt-4">{publisher.name}</h1>
-      <p className="text-sm text-gray-600 mt-2">{publisher.about}</p>
-      <p className="text-sm text-gray-600 mt-2">Address: {publisher.address}</p>
-      <p className="text-sm text-gray-600 mt-2">Website: {publisher.website}</p>
+      <p className="text-gray-600">{publisher.about}</p>
+      <p className="text-gray-600">{publisher.address}</p>
+      <a
+        href={publisher.website}
+        target="_blank"
+        rel="noreferrer"
+        className="text-blue-600 hover:underline"></a>
     </div>
   );
 }
