@@ -45,12 +45,14 @@ export const authorsAPI = {
   getAuthorDetails: (id: number) =>
     api.get(`/api/v1/book/authors/${id}/`),
   getAuthorBooks: (id: number) =>
-    api.get(`/api/v1/book/authors/author_books/${id}/`), // Ensure this is part of authorsAPI
+    api.get(`/api/v1/book/authors/author_books/${id}/`),
 };
 
 export const publishersAPI = {
   getPublisherDetails: (id: number) =>
     api.get(`/api/v1/book/publishers/${id}/`),
+  getPublisherBooks: (publisher_id: number) =>
+    api.get(`/api/v1/book/publishers/publisher_books/${publisher_id}/`),
 };
 
 export default api;
