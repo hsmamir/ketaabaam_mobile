@@ -88,7 +88,7 @@ export default function AuthorPage() {
             <p className="text-xs text-gray-600 mt-1">{book.about}</p>
             <p className="text-xs text-gray-600 mt-1">{book.author_name}</p>
             <p className="text-xs text-gray-600 mt-1">{book.publisher_name}</p>
-            <div className="flex items-center mt-1">
+            <div className="flex items-center mt-1 gap-1">
               <Heart className="w-4 h-4 text-red-500" />
               <span className="text-xs ml-1">{book.likes_count}</span>
             </div>
