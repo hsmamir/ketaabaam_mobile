@@ -62,7 +62,7 @@ export default function SettingsPage() {
 
           <button
             onClick={handleLogout}
-            className="flex items-center space-x-3 w-full px-4 py-3 text-red-600"
+            className="flex gap-2 items-center space-x-3 w-full px-4 py-3 text-red-600"
           >
             <LogOut className="w-5 h-5" />
             <span>خروج</span>
