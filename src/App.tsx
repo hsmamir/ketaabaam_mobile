@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from './store/store';
 import NavigationBar from './components/NavigationBar';
-import ForYouPage from './pages/ForYou/ForYouPage';
+import HomePage from './pages/Home/HomePage';
 import LibraryPage from './pages/Library/LibraryPage';
 import SettingsPage from './pages/Settings/SettingsPage';
 import ExplorePage from './pages/Explore/ExplorePage';
@@ -22,7 +22,7 @@ export default function App() {
           <Router>
             <div className="min-h-screen bg-gray-50">
               <Routes>
-                <Route path="/" element={<ForYouPage />} />
+                <Route path="/" element={<HomePage />} />
                 <Route path="/explore" element={<ExplorePage />} />
                 <Route path="/library" element={<LibraryPage />} />
                 <Route path="/settings" element={<SettingsPage />} />
