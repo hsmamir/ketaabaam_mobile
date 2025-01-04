@@ -13,7 +13,6 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
-    const navigate = useNavigate();
 
     useEffect(() => {
         const token = localStorage.getItem('access_token');
@@ -23,6 +22,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }, []);
 
     const login = async (phone: string, password: string) => {
+        const navigate = useNavigate();
         try {
             const response = await authAPI.login(phone, password);
             const { access, refresh } = response.data;
