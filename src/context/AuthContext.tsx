@@ -1,4 +1,5 @@
-import React, { createContext, useState, useContext, ReactNode, useEffect } from 'react';
+import React, { createContext, useState, useContext, ReactNode, useEffect, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { authAPI } from '../services/api';
 
 interface AuthContextType {
@@ -12,6 +13,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const token = localStorage.getItem('access_token');
@@ -27,6 +29,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             localStorage.setItem('access_token', access);
             localStorage.setItem('refresh_token', refresh);
             setIsAuthenticated(true);
+            navigate('/explore'); // Navigate to explore page after successful login
         } catch (error) {
             console.error('Login failed:', error);
             throw error;
