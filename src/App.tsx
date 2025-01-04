@@ -9,6 +9,8 @@ import ExplorePage from './pages/Explore/ExplorePage';
 import BookDetailsPage from './pages/BookDetails/BookDetailsPage';
 import AuthorPage from './pages/Author/AuthorPage';
 import PublisherPage from './pages/Publisher/PublisherPage';
+import LoginPage from './pages/Login/LoginPage';
+import RegisterPage from './pages/Register/RegisterPage';
 import { AuthProvider } from './context/AuthContext';
 import ErrorBoundary from './components/ErrorBoundary';
 
@@ -27,6 +29,8 @@ export default function App() {
                 <Route path="/books/:id" element={<BookDetailsPage />} />
                 <Route path="/authors/:id" element={<AuthorPage />} />
                 <Route path="/publishers/:id" element={<PublisherPage />} />
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/register" element={<RegisterPage />} />
               </Routes>
               <NavigationBar />
             </div>
