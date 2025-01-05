@@ -39,6 +39,8 @@ export const authAPI = {
 export const libraryAPI = {
   getLibrary: (page?: number, page_size?: number, search?: string) =>
     api.get('/api/v1/book/library/', { params: { page, page_size, search } }),
+  addToLibrary: (id: number) =>
+    api.post(`/api/v1/book/library/${id}/add-to-library/`),
 };
 
 export const authorsAPI = {

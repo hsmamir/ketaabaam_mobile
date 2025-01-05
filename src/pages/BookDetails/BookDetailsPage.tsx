@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useParams, Link, useNavigate } from "react-router-dom";
-import { booksAPI } from "../../services/api";
+import { useParams, Link } from "react-router-dom";
+import { booksAPI, libraryAPI } from "../../services/api";
 import { Book } from "../../types";
 import Loading from "../../components/Loading";
 import { Star, Heart } from "lucide-react";
@@ -10,7 +10,8 @@ export default function BookDetailsPage() {
   const [book, setBook] = useState<Book | null>(null);
   const [loading, setLoading] = useState(true);
   const [liked, setLiked] = useState(false);
-
+  const [addingToLibrary, setAddingToLibrary] = useState(false);
+  const [inLibrary, setInLibrary] = useState(false);
 
   const fetchLikeStatus = async () => {
     try {
@@ -32,10 +33,22 @@ export default function BookDetailsPage() {
     }
   };
 
+  const checkIfInLibrary = async () => {
+    try {
+      const response = await libraryAPI.getLibrary();
+      const isInLibrary = response.data.results.some(
+        (libraryBook: any) => libraryBook.book.id === Number(id)
+      );
+      setInLibrary(isInLibrary);
+    } catch (error) {
+      console.error("Error checking library status:", error);
+    }
+  };
 
   useEffect(() => {
     fetchBookDetails();
     fetchLikeStatus();
+    checkIfInLibrary();
   }, [id]);
 
   const handleLike = async () => {
@@ -45,6 +58,18 @@ export default function BookDetailsPage() {
       fetchBookDetails();
     } catch (error) {
       console.error("Error liking the book:", error);
+    }
+  };
+
+  const handleAddToLibrary = async () => {
+    setAddingToLibrary(true);
+    try {
+      await libraryAPI.addToLibrary(Number(id));
+      setInLibrary(true);
+    } catch (error) {
+      console.error("Error adding book to library:", error);
+    } finally {
+      setAddingToLibrary(false);
     }
   };
 
@@ -104,17 +129,7 @@ export default function BookDetailsPage() {
               {book.likes_count}
             </p>
           </div>
-          {/* <div className="flex flex-wrap gap-2 mb-4">
-            {book.tags?.map((tag) => (
-              <span
-                key={tag}
-                className="bg-gray-200 text-gray-700 text-xs font-medium px-2 py-1 rounded"
-              >
-                {tag}
-              </span>
-            ))}
-          </div> */}
-          <div className="flex flex-row gap-4">
+          <div className="flex flex-row gap-4 mb-4">
             <Link to={`/authors/${book.author.id}`} className="text-blue-500">
               نویسنده: {book.author.name}
             </Link>
@@ -125,6 +140,13 @@ export default function BookDetailsPage() {
               ناشر: {book.publisher.name}
             </Link>
           </div>
+          <button
+            onClick={handleAddToLibrary}
+            disabled={inLibrary || addingToLibrary}
+            className={`px-4 py-2 text-white ${inLibrary ? "bg-gray-400" : "bg-blue-500"} rounded`}
+          >
+            {addingToLibrary ? "در حال افزودن..." : inLibrary ? "در کتابخانه شماست" : "افزودن به کتابخانه"}
+          </button>
         </div>
       </div>
     </div>
