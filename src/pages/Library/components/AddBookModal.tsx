@@ -19,10 +19,10 @@ export default function AddBookModal({ onBookAdded }: Props) {
     setSuccess(null);
     setIsSubmitting(true);
     try {
-      const response = await libraryAPI.createLibraryBook({
-        book: bookId,
+      const response = await libraryAPI.addToLibrary(
+        bookId,
         category,
-      });
+      );
       onBookAdded(response.data);
       setSuccess("Book added to your library.");
       setBookId(0);
