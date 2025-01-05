@@ -26,7 +26,7 @@ export default function BookDetailsPage() {
     const fetchLikeStatus = async () => {
       try {
         const response = await booksAPI.getBookLikeStatus(Number(id));
-        setLiked(response.data.liked); // Assuming the API returns a 'liked' field
+        setLiked(response.data.liked);
       } catch (error) {
         console.error("Error fetching like status:", error);
       }
@@ -59,9 +59,8 @@ export default function BookDetailsPage() {
       stars.push(
         <Star
           key={i}
-          className={`w-4 h-4 ${
-            i < rating ? "text-yellow-500" : "text-gray-300"
-          }`}
+          className={`w-4 h-4 ${i < rating ? "text-yellow-500" : "text-gray-300"
+            }`}
         />
       );
     }
@@ -95,9 +94,8 @@ export default function BookDetailsPage() {
             <p className="text-sm text-gray-600">تعداد صفحات: {book.pages}</p>
             <p className="text-sm text-gray-600 flex items-center gap-1">
               <Heart
-                className={`w-6 h-6 cursor-pointer ${
-                  liked ? "text-red-500" : "text-gray-300"
-                }`}
+                className={`w-6 h-6 cursor-pointer ${liked ? "text-red-500" : "text-gray-300"
+                  }`}
                 onClick={handleLike}
               />{" "}
               {book.likes_count}
