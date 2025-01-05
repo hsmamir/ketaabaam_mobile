@@ -31,9 +31,9 @@ function Layout({ children }: { children: React.ReactNode }) {
 export default function App() {
   return (
     <Provider store={store}>
-      <AuthProvider>
-        <ErrorBoundary>
-          <Router>
+      <Router>
+        <AuthProvider>
+          <ErrorBoundary>
             <Layout>
               <Routes>
                 <Route path="/" element={<HomePage />} />
@@ -47,9 +47,9 @@ export default function App() {
                 <Route path="/register" element={<RegisterPage />} />
               </Routes>
             </Layout>
-          </Router>
-        </ErrorBoundary>
-      </AuthProvider>
+          </ErrorBoundary>
+        </AuthProvider>
+      </Router>
     </Provider>
   );
 }

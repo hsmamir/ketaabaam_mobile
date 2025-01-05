@@ -10,9 +10,11 @@ export default function LoginForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
+    console.log('Login form submitted'); // Add this line
     try {
       await login(phone, password);
     } catch (err: any) {
+      console.error('Login error:', err); // Add this line
       setError(err.response?.data?.detail || 'Invalid credentials. Please try again.');
     }
   };

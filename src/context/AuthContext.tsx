@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext, ReactNode, useEffect, useCallback } from 'react';
+import React, { createContext, useState, useContext, ReactNode, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { authAPI } from '../services/api';
 
@@ -13,6 +13,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+    const navigate = useNavigate(); // Move this line here
 
     useEffect(() => {
         const token = localStorage.getItem('access_token');
@@ -22,7 +23,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }, []);
 
     const login = async (phone: string, password: string) => {
-        const navigate = useNavigate();
+        console.log('Calling authAPI.login'); // Add this line
         try {
             const response = await authAPI.login(phone, password);
             const { access, refresh } = response.data;
