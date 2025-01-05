@@ -24,6 +24,10 @@ export interface Book {
   author: Author;
   genre: Genre;
   likes_count: number;
+  average_rating: number;
+  isbn: string;
+  published: string;
+  pages: number;
 }
 
 export interface LibraryBook {

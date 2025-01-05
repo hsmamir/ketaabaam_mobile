@@ -103,7 +103,7 @@ export default function BookDetailsPage() {
               {book.likes_count}
             </p>
           </div>
-          <div className="flex flex-wrap gap-2 mb-4">
+          {/* <div className="flex flex-wrap gap-2 mb-4">
             {book.tags?.map((tag) => (
               <span
                 key={tag}
@@ -112,7 +112,7 @@ export default function BookDetailsPage() {
                 {tag}
               </span>
             ))}
-          </div>
+          </div> */}
           <div className="flex flex-row gap-4">
             <Link to={`/authors/${book.author.id}`} className="text-blue-500">
               نویسنده: {book.author.name}
