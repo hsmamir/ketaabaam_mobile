@@ -11,27 +11,29 @@ export default function BookDetailsPage() {
   const [loading, setLoading] = useState(true);
   const [liked, setLiked] = useState(false);
 
+
+  const fetchLikeStatus = async () => {
+    try {
+      const response = await booksAPI.getBookLikeStatus(Number(id));
+      setLiked(response.data.liked);
+    } catch (error) {
+      console.error("Error fetching like status:", error);
+    }
+  };
+
+  const fetchBookDetails = async () => {
+    try {
+      const response = await booksAPI.getBookDetails(Number(id));
+      setBook(response.data);
+    } catch (error) {
+      console.error("Error fetching book details:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+
   useEffect(() => {
-    const fetchBookDetails = async () => {
-      try {
-        const response = await booksAPI.getBookDetails(Number(id));
-        setBook(response.data);
-      } catch (error) {
-        console.error("Error fetching book details:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    const fetchLikeStatus = async () => {
-      try {
-        const response = await booksAPI.getBookLikeStatus(Number(id));
-        setLiked(response.data.liked);
-      } catch (error) {
-        console.error("Error fetching like status:", error);
-      }
-    };
-
     fetchBookDetails();
     fetchLikeStatus();
   }, [id]);
@@ -40,6 +42,7 @@ export default function BookDetailsPage() {
     try {
       await booksAPI.likeBook(Number(id));
       setLiked(!liked);
+      fetchBookDetails();
     } catch (error) {
       console.error("Error liking the book:", error);
     }
