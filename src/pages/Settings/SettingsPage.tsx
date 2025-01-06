@@ -29,9 +29,14 @@ export default function SettingsPage() {
                 title="پروفایل"
                 subtitle={user?.phone}
               />
-              <SettingsItem
+              {/* <SettingsItem
                 icon={<Shield className="w-5 h-5" />}
                 title="حریم خصوصی و امنیت"
+              /> */}
+              <SettingsItem
+                icon={<Shield className="w-5 h-5" />}
+                title="تغییر رمز عبور"
+                onClick={() => (window.location.href = "/change-password")}
               />
               <SettingsItem
                 icon={<Bell className="w-5 h-5" />}
