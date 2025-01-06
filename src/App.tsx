@@ -12,6 +12,7 @@ import AuthorPage from './pages/Author/AuthorPage';
 import PublisherPage from './pages/Publisher/PublisherPage';
 import LoginPage from './pages/Login/LoginPage';
 import RegisterPage from './pages/Register/RegisterPage';
+import ChangePasswordPage from './pages/ChangePassword/ChangePasswordPage'; // Import ChangePasswordPage
 import { AuthProvider } from './context/AuthContext';
 import ErrorBoundary from './components/ErrorBoundary';
 
@@ -45,6 +46,7 @@ export default function App() {
                 <Route path="/publishers/:id" element={<PublisherPage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
+                <Route path="/change-password" element={<ChangePasswordPage />} /> {/* Add route */}
               </Routes>
             </Layout>
           </ErrorBoundary>
