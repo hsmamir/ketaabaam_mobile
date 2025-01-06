@@ -1,5 +1,5 @@
 import api from './api/base';
-import { CategoryEnum } from '../types/library';
+import { CategoryEnum, LibraryBook } from '../types/index';
 
 export const booksAPI = {
   getBooks: (page = 1, page_size = 10, search?: string) =>
@@ -30,17 +30,17 @@ export const authAPI = {
   getVerificationCode: (phone: string) =>
     api.post('/auth/get-verification-code/', { phone }),
   resetPassword: (phone: string, verificationCode: string, newPassword: string, confirmPassword: string) =>
-    api.post('/auth/reset-password/', { 
-      phone, 
+    api.post('/auth/reset-password/', {
+      phone,
       verification_code: verificationCode,
       new_password: newPassword,
-      confirm_password: confirmPassword 
+      confirm_password: confirmPassword
     }),
   changePassword: (password: string, newPassword: string, confirmPassword: string) =>
-    api.post('/auth/changepassword/', { 
+    api.post('/auth/changepassword/', {
       password,
       new_password: newPassword,
-      confirm_password: confirmPassword 
+      confirm_password: confirmPassword
     }),
 };
 
@@ -53,6 +53,16 @@ export const libraryAPI = {
     api.patch(`/book/library/${id}/`, { pages_read: pagesRead }),
   removeFromLibrary: (id: number) =>
     api.delete(`/book/library/${id}/`),
+  getLibraryBook: (id: number) =>
+    api.get(`/book/library/${id}/`),
+  updateLibraryBook: (id: number, data: Partial<LibraryBook>) =>
+    api.patch(`/book/library/${id}/`, data),
+  deleteLibraryBook: (id: number) =>
+    api.delete(`/book/library/${id}/`),
+  addToLibraryById: (id: number) =>
+    api.post(`/book/library/${id}/add-to-library/`),
+  removeFromLibraryById: (id: number) =>
+    api.post(`/book/library/${id}/remove-from-library/`),
 };
 
 export const authorsAPI = {
