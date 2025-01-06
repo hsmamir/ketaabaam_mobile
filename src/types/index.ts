@@ -1,6 +1,5 @@
 export * from './auth';
 export * from './books';
-export * from './library';
 
 export interface Author {
   id: number;
@@ -33,9 +32,18 @@ export interface Book {
   average_rating: string;
 }
 
+export enum CategoryEnum {
+  CurrentlyReading = 1,
+  WantToRead = 2,
+  Finished = 3,
+}
+
 export interface LibraryBook {
   id: number;
-  book: Book;
+  book: number;
+  book_title: string;
+  author_name: string;
+  cover?: string;
   category: CategoryEnum;
   pages_read: number;
   progress: number;
