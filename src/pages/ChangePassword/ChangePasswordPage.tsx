@@ -20,12 +20,12 @@ export default function ChangePasswordPage() {
 
         try {
             await authAPI.changePassword(currentPassword, newPassword, confirmPassword);
-            setSuccess('Password changed successfully');
+            setSuccess('رمز عبور با موفقیت تغییر یافت.');
             setCurrentPassword('');
             setNewPassword('');
             setConfirmPassword('');
         } catch (err: any) {
-            setError('Failed to change password. Please try again.');
+            setError('رمز عبور فعلی اشتباه است.');
         }
     };
 
