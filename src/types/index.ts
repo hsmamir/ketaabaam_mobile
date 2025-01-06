@@ -4,37 +4,42 @@ export * from './library';
 
 export interface Author {
   id: number;
-  image: string;
+  image?: string;
   name: string;
-  bio: string;
-  birthdate: string;
-  email: string;
-
+  bio?: string;
+  birthdate?: string;
+  email?: string;
 }
 
 export interface Genre {
+  id: number;
   name: string;
 }
 
 export interface Book {
   id: number;
   title: string;
-  cover: string;
-  about: string | null;
-  author: Author;
-  genre: Genre;
-  likes_count: number;
-  average_rating: number;
+  about?: string;
+  cover?: string;
   isbn: string;
+  synopsis?: string;
   published: string;
   pages: number;
+  author: Author;
+  publisher: Publisher;
+  genre: Genre;
+  book_format: BookFormat;
+  likes_count: number;
+  average_rating: string;
 }
 
 export interface LibraryBook {
   id: number;
   book: Book;
-  category: number; // 1: Currently Reading, 2: Want to Read, 3: Finished
-  progress?: number; // Percentage or any other metric
+  category: CategoryEnum;
+  pages_read: number;
+  progress: number;
+  created_at: string;
 }
 
 export interface PaginatedLibraryList {
@@ -47,17 +52,25 @@ export interface PaginatedLibraryList {
 export interface UserRegistration {
   phone: string;
   password: string;
-  // Add other registration fields as necessary
+  result: string;
 }
 
 export interface UserLogin {
+  phone: string;
+  password: string;
   access: string;
   refresh: string;
-  // Add other login response fields if necessary
+  user_type: UserType;
 }
 
 export interface PatchedLibrary {
-  progress?: number;
-  category?: number;
-  // Add other fields if necessary
+  id: number;
+  book: number;
+  book_title: string;
+  author_name: string;
+  cover?: string;
+  category: CategoryEnum;
+  pages_read: number;
+  progress: number;
+  created_at: string;
 }
