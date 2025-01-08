@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { publishersAPI } from "../../services/api";
 import { Publisher, Book } from "../../types";
 import Loading from "../../components/Loading";
-import { Heart } from "lucide-react";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
 
 export default function PublisherPage() {
   const { id } = useParams<{ id: string }>();
@@ -12,6 +12,7 @@ export default function PublisherPage() {
   const [books, setBooks] = useState<Book[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [isFollowing, setIsFollowing] = useState(false);
 
   useEffect(() => {
     const fetchPublisherDetails = async () => {
@@ -41,9 +42,28 @@ export default function PublisherPage() {
       }
     };
 
+    const fetchFollowStatus = async () => {
+      try {
+        const response = await publishersAPI.getFollowStatus(Number(id));
+        setIsFollowing(response.data.is_following);
+      } catch (error) {
+        console.error("Error fetching follow status:", error);
+      }
+    };
+
     fetchPublisherDetails();
     fetchPublisherBooks();
+    fetchFollowStatus();
   }, [id]);
+
+  const handleFollowToggle = async () => {
+    try {
+      await publishersAPI.followPublisher(Number(id));
+      setIsFollowing(!isFollowing);
+    } catch (error) {
+      console.error("Error toggling follow status:", error);
+    }
+  };
 
   if (loading) {
     return <Loading />;
@@ -64,7 +84,16 @@ export default function PublisherPage() {
         alt={publisher.name}
         className="w-full h-64 object-cover rounded-lg"
       />
-      <h1 className="text-2xl font-semibold mt-4">{publisher.name}</h1>
+      <div className="flex items-center justify-between mt-4">
+        <h1 className="text-2xl font-semibold">{publisher.name}</h1>
+        <button
+          onClick={handleFollowToggle}
+          className={`flex items-center px-4 py-2 gap-1 rounded ${isFollowing ? 'bg-red-500 text-white' : 'bg-blue-500 text-white'}`}
+        >
+          {isFollowing ? <FaHeart className="mr-2" /> : <FaRegHeart className="mr-2" />}
+          {isFollowing ? 'دنبال شده' : 'دنبال کردن'}
+        </button>
+      </div>
       <p className="text-gray-600">{publisher.about}</p>
       <p className="text-gray-600">نشانی: {publisher.address}</p>
       <a
@@ -90,7 +119,7 @@ export default function PublisherPage() {
             <p className="text-xs text-gray-600 mt-1">{book.author_name}</p>
             <p className="text-xs text-gray-600 mt-1">{book.publisher_name}</p>
             <div className="flex items-center mt-1 gap-1">
-              <Heart className="w-4 h-4 text-red-500" />
+              <FaHeart className="w-4 h-4 text-red-500" />
               <span className="text-xs ml-1">{book.likes_count}</span>
             </div>
           </div>

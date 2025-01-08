@@ -83,6 +83,10 @@ export const publishersAPI = {
     api.get(`/book/publishers/${id}/`),
   getPublisherBooks: (publisher_id: number) =>
     api.get(`/book/publishers/publisher_books/${publisher_id}/`),
+  followPublisher: (id: number) =>
+    api.post(`/book/publishers/${id}/follow/`),
+  getFollowStatus: (id: number) =>
+    api.get(`/book/publishers/${id}/follow/`),
 };
 
 export default api;
