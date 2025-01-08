@@ -5,6 +5,7 @@ import NavigationBar from './components/NavigationBar';
 import Header from './components/Header';
 import HomePage from './pages/Home/HomePage';
 import LibraryPage from './pages/Library/LibraryPage';
+import LibraryBookPage from './pages/Library/LibraryBookPage';
 import SettingsPage from './pages/Settings/SettingsPage';
 import ExplorePage from './pages/Explore/ExplorePage';
 import BookDetailsPage from './pages/BookDetails/BookDetailsPage';
@@ -40,6 +41,7 @@ export default function App() {
                 <Route path="/" element={<HomePage />} />
                 <Route path="/explore" element={<ExplorePage />} />
                 <Route path="/library" element={<LibraryPage />} />
+                <Route path="/library/book/:id" element={<LibraryBookPage />} />
                 <Route path="/settings" element={<SettingsPage />} />
                 <Route path="/books/:id" element={<BookDetailsPage />} />
                 <Route path="/authors/:id" element={<AuthorPage />} />

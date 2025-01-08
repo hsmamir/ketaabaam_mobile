@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { libraryAPI } from '../../services/api';
 import { LibraryBook } from '../../types';
 import Loading from '../../components/Loading';
@@ -9,6 +10,7 @@ export default function LibraryPage() {
   const [error, setError] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [searchPerformed, setSearchPerformed] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchLibraryBooks = async () => {
@@ -70,7 +72,11 @@ export default function LibraryPage() {
       ) : (
         <div className="space-y-4">
           {filteredBooks.map((book) => (
-            <div key={book.id} className="flex gap-3">
+            <div
+              key={book.id}
+              className="flex gap-3 cursor-pointer"
+              onClick={() => navigate(`/library/book/${book.id}`)}
+            >
               <img
                 src={book.cover || 'https://images.unsplash.com/photo-1543002588-bfa74002ed7e?auto=format&fit=crop&w=200'}
                 alt={book.book_title}
