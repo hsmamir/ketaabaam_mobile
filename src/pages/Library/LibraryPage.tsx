@@ -7,6 +7,8 @@ export default function LibraryPage() {
   const [libraryBooks, setLibraryBooks] = useState<LibraryBook[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [searchPerformed, setSearchPerformed] = useState(false);
 
   useEffect(() => {
     const fetchLibraryBooks = async () => {
@@ -23,6 +25,25 @@ export default function LibraryPage() {
     fetchLibraryBooks();
   }, []);
 
+  useEffect(() => {
+    if (searchTerm && searchPerformed && filteredBooks.length === 0) {
+      const fetchLibraryBooks = async () => {
+        try {
+          const response = await libraryAPI.getLibrary(undefined, undefined, searchTerm);
+          setLibraryBooks(response.data.data || []);
+        } catch (err: any) {
+          setError('Failed to load library books. Please try again.');
+        }
+      };
+
+      fetchLibraryBooks();
+    }
+  }, [searchTerm, searchPerformed]);
+
+  const filteredBooks = libraryBooks.filter(book =>
+    book.book_title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   if (loading) {
     return <Loading />;
   }
@@ -34,11 +55,21 @@ export default function LibraryPage() {
   return (
     <div className="p-4">
       <h2 className="text-xl mb-4">کتابخانه من</h2>
-      {libraryBooks.length === 0 ? (
+      <input
+        type="text"
+        value={searchTerm}
+        onChange={(e) => {
+          setSearchTerm(e.target.value);
+          setSearchPerformed(true);
+        }}
+        placeholder="جستجو در کتابخانه"
+        className="w-full px-3 py-2 mb-4 border rounded"
+      />
+      {filteredBooks.length === 0 ? (
         <p>کتابی در کتابخانه شما یافت نشد.</p>
       ) : (
         <div className="space-y-4">
-          {libraryBooks.map((book) => (
+          {filteredBooks.map((book) => (
             <div key={book.id} className="flex gap-3">
               <img
                 src={book.cover || 'https://images.unsplash.com/photo-1543002588-bfa74002ed7e?auto=format&fit=crop&w=200'}
