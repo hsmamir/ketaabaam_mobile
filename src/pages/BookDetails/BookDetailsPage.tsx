@@ -107,12 +107,15 @@ export default function BookDetailsPage() {
           className="w-full h-full object-cover"
         />
         <div className="p-6">
-          <h5 className="text-xl font-semibold mb-2 flex items-center">
-            {book.title}
-            <span className="ml-2 flex items-center">
+          <div className="flex items-center justify-between mt-4">
+            <h5 className="text-xl font-semibold mb-2 flex items-center">
+              {book.title}
+            </h5>
+            <span className="text-xl font-semibold mb-2 flex items-center">
               {renderStars(Math.round(book.average_rating))}
             </span>
-          </h5>
+          </div>
+
           <p className="text-gray-600 mb-4">{book.about}</p>
           <div className="grid grid-cols-2 gap-4 mb-4">
             <p className="text-sm text-gray-600">شابک: {book.isbn}</p>
