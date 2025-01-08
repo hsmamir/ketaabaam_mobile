@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { authorsAPI } from "../../services/api";
 import { Author, Book } from "../../types";
 import Loading from "../../components/Loading";
-import { Heart } from "lucide-react";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
 
 export default function AuthorPage() {
   const { id } = useParams<{ id: string }>();
@@ -12,6 +12,7 @@ export default function AuthorPage() {
   const [books, setBooks] = useState<Book[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [isFollowing, setIsFollowing] = useState(false);
 
   useEffect(() => {
     const fetchAuthorDetails = async () => {
@@ -42,9 +43,28 @@ export default function AuthorPage() {
       }
     };
 
+    const fetchFollowStatus = async () => {
+      try {
+        const response = await authorsAPI.getFollowStatus(Number(id));
+        setIsFollowing(response.data.is_following);
+      } catch (error) {
+        console.error("Error fetching follow status:", error);
+      }
+    };
+
     fetchAuthorDetails();
     fetchAuthorBooks();
+    fetchFollowStatus();
   }, [id]);
+
+  const handleFollowToggle = async () => {
+    try {
+      await authorsAPI.followAuthor(Number(id));
+      setIsFollowing(!isFollowing);
+    } catch (error) {
+      console.error("Error toggling follow status:", error);
+    }
+  };
 
   if (loading) {
     return <Loading />;
@@ -65,7 +85,16 @@ export default function AuthorPage() {
         alt={author.name}
         className="w-full h-full object-cover rounded-lg"
       />
-      <h1 className="text-2xl font-semibold mt-4">{author.name}</h1>
+      <div className="flex items-center justify-between mt-4">
+        <h1 className="text-2xl font-semibold">{author.name}</h1>
+        <button
+          onClick={handleFollowToggle}
+          className={`flex items-center px-4 py-2 gap-1 rounded ${isFollowing ? 'bg-red-500 text-white' : 'bg-blue-500 text-white'}`}
+        >
+          {isFollowing ? <FaHeart className="mr-2" /> : <FaRegHeart className="mr-2" />}
+          {isFollowing ? 'دنبال شده' : 'دنبال کردن'}
+        </button>
+      </div>
       <p className="text-sm text-gray-600 mt-2">{author.bio}</p>
       <div className="grid grid-cols-2 gap-4 mb-4">
         <p className="text-sm text-gray-600">تاریخ تولد: {author.birthdate}</p>
@@ -89,7 +118,7 @@ export default function AuthorPage() {
             <p className="text-xs text-gray-600 mt-1">{book.author_name}</p>
             <p className="text-xs text-gray-600 mt-1">{book.publisher_name}</p>
             <div className="flex items-center mt-1 gap-1">
-              <Heart className="w-4 h-4 text-red-500" />
+              <FaHeart className="w-4 h-4 text-red-500" />
               <span className="text-xs ml-1">{book.likes_count}</span>
             </div>
           </div>
