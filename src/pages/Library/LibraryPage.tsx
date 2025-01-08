@@ -70,7 +70,7 @@ export default function LibraryPage() {
       {filteredBooks.length === 0 ? (
         <p>کتابی در کتابخانه شما یافت نشد.</p>
       ) : (
-        <div className="space-y-4">
+        <div className="grid grid-cols-2 gap-4">
           {filteredBooks.map((book) => (
             <div
               key={book.id}
@@ -85,6 +85,12 @@ export default function LibraryPage() {
               <div>
                 <h3 className="font-medium">{book.book_title}</h3>
                 <p className="text-sm text-gray-600">{book.author_name}</p>
+                <div className="w-full bg-gray-200 rounded-full h-2.5 mt-1">
+                  <div
+                    className="bg-blue-500 h-2.5 rounded-full"
+                    style={{ width: `${book.progress}%` }}
+                  ></div>
+                </div>
                 <p className="text-xs text-gray-500 mt-1">پیشرفت: {book.progress}%</p>
               </div>
             </div>
