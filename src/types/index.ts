@@ -29,7 +29,7 @@ export interface Book {
   genre: Genre;
   book_format: BookFormat;
   likes_count: number;
-  average_rating: string;
+  average_rating: number;
 }
 
 export enum CategoryEnum {
